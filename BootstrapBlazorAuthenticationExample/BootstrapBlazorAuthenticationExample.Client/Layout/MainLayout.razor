@@ -1,0 +1,159 @@
+﻿@inherits LayoutComponentBase
+<BootstrapBlazorRoot>
+    <Layout ShowGotoTop="true" ShowCollapseBar="true" ShowFooter="@ShowFooter" SideWidth="0"
+            IsPage="true" IsFullSide="@IsFullSide" IsFixedHeader="@IsFixedHeader" IsFixedFooter="@IsFixedFooter"
+            TabDefaultUrl="/" UseTabSet="@UseTabSet" IsFixedTabHeader="IsFixedTabHeader" AdditionalAssemblies="new[] { GetType().Assembly }"
+            Menus="@Menus" class="@Theme">
+        <Header>
+            <span class="ms-3 flex-sm-fill d-none d-sm-block">Bootstrap of Blazor</span>
+            <div class="flex-fill d-sm-none">
+            </div>
+            <Widget></Widget>
+            <Logout ImageUrl="images/Argo-C.png" DisplayName="超级管理员" UserName="Admin">
+                <LinkTemplate>
+                    <a href="#"><i class="fa-solid fa-suitcase"></i>个人中心</a>
+                    <a href="#"><i class="fa-solid fa-cog"></i>设置</a>
+                    <a href="#"><i class="fa-solid fa-bell"></i>通知<span class="badge badge-pill badge-success"></span></a>
+                    <LogoutLink/>
+                </LinkTemplate>
+            </Logout>
+            <div style="padding: 6px; cursor: pointer;" @onclick="@(e => IsOpen = !IsOpen)">
+                <i class="fa fa-gears"></i>
+            </div>
+        </Header>
+        <Side>
+            <div class="layout-banner">
+                <img class="layout-logo" src="./images/logo.png"/>
+                <div class="layout-title">
+                    <span>后台管理</span>
+                </div>
+            </div>
+        </Side>
+        <Main>
+            <CascadingValue Value="this" IsFixed="true">
+                @Body
+            </CascadingValue>
+        </Main>
+        <Footer>
+            <div class="text-center flex-fill">
+                <a class="page-layout-demo-footer-link" href="https://pro.blazor.zone/" target="_blank">Bootstrap Admin</a>
+            </div>
+        </Footer>
+    </Layout>
+    <Drawer Placement="Placement.Right" @bind-IsOpen="@IsOpen" IsBackdrop="true">
+        <div class="layout-drawer-body">
+            <div class="btn btn-info w-100" @onclick="@(e => IsOpen = false)">点击关闭</div>
+            <GroupBox Title="布局调整">
+                <div class="row">
+                    <div class="col-6">
+                        <LayoutPreview IsFullSide="true" IsActive="IsFullSide" OnClick="OnSideChanged"></LayoutPreview>
+                    </div>
+                    <div class="col-6">
+                        <LayoutPreview IsFullSide="false" IsActive="!IsFullSide" OnClick="OnSideChanged"></LayoutPreview>
+                    </div>
+                </div>
+            </GroupBox>
+
+            <GroupBox Title="固定调整">
+                <div class="row">
+                    <div class="col-6">
+                        <Switch @bind-Value="@IsFixedHeader" OnColor="@Color.Success"></Switch>
+                    </div>
+                    <div class="col-6">
+                        <span class="cell-label">固定页头</span>
+                    </div>
+                    <div class="col-6">
+                        <Switch @bind-Value="@IsFixedFooter" OnColor="@Color.Success"></Switch>
+                    </div>
+                    <div class="col-6">
+                        <span class="cell-label">固定页脚</span>
+                    </div>
+                    <div class="col-6">
+                        <Switch @bind-Value="@ShowFooter" OnColor="@Color.Success"></Switch>
+                    </div>
+                    <div class="col-6">
+                        <span class="cell-label">显示页脚</span>
+                    </div>
+                </div>
+            </GroupBox>
+
+            <GroupBox Title="更多设置">
+                <div class="row">
+                    <div class="col-6">
+                        <Switch @bind-Value="@UseTabSet" OnColor="@Color.Success"></Switch>
+                    </div>
+                    <div class="col-6">
+                        <span class="cell-label">@(UseTabSet ? "多标签" : "单页")</span>
+                    </div>
+                    <div class="col-6">
+                        <Switch @bind-Value="@IsFixedTabHeader" OnColor="@Color.Success"></Switch>
+                    </div>
+                    <div class="col-6">
+                        <span class="cell-label">固定标签页</span>
+                    </div>
+                </div>
+            </GroupBox>
+        </div>
+    </Drawer> 
+</BootstrapBlazorRoot>
+<div id="blazor-error-ui">
+    An unhandled error has occurred.
+    <a href="" class="reload">Reload</a>
+    <a class="dismiss">🗙</a>
+</div>
+
+
+@code
+{
+    private bool UseTabSet { get; set; } = true;
+
+    private string Theme { get; set; } = "";
+
+    private bool IsOpen { get; set; }
+
+    private bool IsFixedHeader { get; set; } = true;
+
+    private bool IsFixedTabHeader { get; set; } = true;
+
+    private bool IsFixedFooter { get; set; } = true;
+
+    private bool IsFullSide { get; set; } = true;
+
+    private bool ShowFooter { get; set; } = true;
+
+    private List<MenuItem>? Menus { get; set; }
+
+    /// <summary>
+    /// <inheritdoc/>
+    /// </summary>
+    protected override void OnInitialized()
+    {
+        base.OnInitialized();
+
+        Menus = GetIconSideMenuItems(); 
+    }
+
+    private static List<MenuItem> GetIconSideMenuItems()
+    {
+        var menus = new List<MenuItem>
+        {
+            new() { Text = "返回组件库", Icon = "fa-solid fa-fw fa-home", Url = "https://www.blazor.zone/components" },
+            new() { Text = "Index", Icon = "fa-solid fa-fw fa-flag", Url = "/", Match = NavLinkMatch.All },
+            new() { Text = "Counter", Icon = "fa-solid fa-fw fa-check-square", Url = "/counter" },
+            new() { Text = "Weather", Icon = "fa-solid fa-fw fa-database", Url = "/weather" },
+            new() { Text = "Table", Icon = "fa-solid fa-fw fa-table", Url = "/table" },
+            new() { Text = "花名册", Icon = "fa-solid fa-fw fa-users", Url = "/users" },
+            new() { Text = "花名册111", Icon = "fa-solid fa-fw fa-users", Url = "/users111" }
+        };
+
+        return menus;
+    }
+
+    private Task OnSideChanged(bool v)
+    {
+        IsFullSide = v;
+        StateHasChanged();
+        return Task.CompletedTask;
+    }
+     
+}

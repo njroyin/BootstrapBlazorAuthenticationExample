@@ -1,0 +1,23 @@
+.page-user[b-7hm5vnhwfu] {
+    height: calc(100vh - 82px - var(--bb-layout-footer-height) - var(--bb-tabs-item-height, 0px));
+}
+
+.user-demo-address[b-7hm5vnhwfu] {
+    margin-top: .25rem;
+    font-size: 86%;
+    color: #c0c4cc;
+}
+
+[b-7hm5vnhwfu] .table-users {
+    height: calc(100% - 93px);
+}
+
+[b-7hm5vnhwfu] .table-cell img {
+    width: 46px;
+    border-radius: var(--bs-border-radius);
+}
+
+[b-7hm5vnhwfu] .table-cell .progress {
+    height: 6px;
+    margin-top: .5rem;
+}

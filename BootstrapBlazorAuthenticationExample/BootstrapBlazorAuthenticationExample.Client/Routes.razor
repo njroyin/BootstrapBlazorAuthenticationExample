@@ -1,0 +1,40 @@
+﻿@using Microsoft.AspNetCore.Components.Authorization
+@using BootstrapBlazorAuthenticationExample.Client.Pages
+@using BootstrapBlazorAuthenticationExample.Share.Services
+ 
+<Router AppAssembly="typeof(Program).Assembly" AdditionalAssemblies="new[] { typeof(Client._Imports).Assembly }">
+    <Found Context="routeData"> 
+       @if (_isAuthenticated)
+        {
+            <RouteView RouteData="routeData" DefaultLayout="typeof(Layout.MainLayout)"/>
+            <FocusOnNavigate RouteData="routeData" Selector="h1" />
+        }
+        else
+        {
+            <LayoutView Layout="typeof(Layout.LoginLayout)">
+                <Login/>
+            </LayoutView>
+        } 
+    </Found> 
+</Router> 
+@code
+{ 
+    [Inject]
+    private  IAuthenticationService?  AuthenticationService { get; set; }
+    private bool _isAuthenticated  = false;
+
+
+    protected override async Task OnAfterRenderAsync(bool firstRender)
+    {
+
+        if (firstRender)
+        {
+            var authState = await AuthenticationService?.GetAuthenticationStateAsync();
+            _isAuthenticated = authState.User.Identity?.IsAuthenticated ?? false;
+            StateHasChanged();
+        }
+
+        await base.OnAfterRenderAsync(firstRender);
+    }
+
+}

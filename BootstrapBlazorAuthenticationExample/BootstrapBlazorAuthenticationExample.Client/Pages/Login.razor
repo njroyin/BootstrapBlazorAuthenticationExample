@@ -1,0 +1,95 @@
+
+@using System.ComponentModel.DataAnnotations
+@using BootstrapBlazorAuthenticationExample.Share.Models
+@using BootstrapBlazorAuthenticationExample.Share.Services
+@using Microsoft.AspNetCore.Components.Authorization
+
+
+@page "/Login"    
+
+<div class="d-flex flex-column app-layout-login ">
+    <div class="flex-fill  login-layout app-login-back-@_bgnumber">
+        <header class="login-header">
+            <img src="/images/logo.png" alt="" height="48">
+        </header>
+        <div class="login-content">
+            <div class="login-form">
+                <h1>WTMApp</h1>
+                <ValidateForm Model="@Model" FormName="LoginForm"  ValidateAllProperties="true" OnValidSubmit="ValidSubmit">
+                    <BootstrapInput   @bind-Value="@Model.ItCode" UseInputEvent="true"  OnValueChanged="ValueChanged"></BootstrapInput> 
+                    <BootstrapPassword @bind-Value="@Model.Password" IsSelectAllTextOnFocus="true" ></BootstrapPassword>
+                    <Select Items="_items" @bind-Value="@Model.CurrentDeptId" Placeholder="请选择科室"></Select>
+                    <Button ButtonType="ButtonType.Submit" Text="登录" style="width:100%;margin-top:20px;" IsAsync="true"></Button>
+                </ValidateForm>
+            </div>
+        </div>
+    </div>
+</div> 
+@code {  
+    [Inject]
+    private  IAuthenticationService?  AuthenticationService { get; set; }
+    [Inject]
+    private NavigationManager? NavigationManager { get; set; }
+    [Inject] 
+    private  MessageService? MessageService { get; set; }
+    [Inject]
+    private ILogger<Login>? Logger { get; set; }
+    private int _bgnumber;
+ 
+    private LoginVm Model { get; set; } = new();
+
+    private List<SelectedItem> _items = new();
+    
+    protected override void OnInitialized()
+    {
+        base.OnInitialized();
+        _bgnumber = new Random().Next(1, 6);  
+        _items.Add(new SelectedItem("0001","初始科室"));
+    }
+
+    
+    class LoginVm
+    {
+        [Display(Name = "登录名称")]
+        [Required(ErrorMessage = "{0}不能为空")]
+        public string ItCode { get; set; } = string.Empty;
+
+        [Display(Name = "登录密码")]
+        [Required(ErrorMessage = "{0}不能为空")]
+        [MinLength(8, ErrorMessage = "{0}不能小于{1}")]
+        public string Password { get; set; } = string.Empty;
+
+        [Display(Name = "登录科室")]
+        [Required(ErrorMessage = "{0}选择登陆科室")]
+        public string CurrentDeptId { get; set; } = string.Empty;
+    }
+
+    private async Task ValidSubmit(EditContext arg)
+    {
+        try
+        {
+            User userSession = new User() { FirstName = "luo", Id = 123, LastName = "yin", Token = "123", Username = "luoyin" };
+             
+            await AuthenticationService?.LoginAsync(userSession); 
+            NavigationManager?.NavigateTo("/",true);
+        }
+        catch (Exception ex)
+        {
+            Logger?.LogError(ex,ex.Message);
+            MessageService?.Show(new MessageOption() { Color = Color.Danger, Content = $"{ex.Message}" }); 
+        }
+ 
+    }
+
+
+    private Task ValueChanged(string? obj)
+    {
+       
+            Logger?.LogInformation($"ValueChanged=>>>>{obj}");
+            return Task.CompletedTask;
+    }
+ 
+  
+}
+
+

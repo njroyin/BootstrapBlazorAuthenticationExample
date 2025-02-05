@@ -1,0 +1,28 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BootstrapBlazorAuthenticationExample.Client", "BootstrapBlazorAuthenticationExample\BootstrapBlazorAuthenticationExample.Client\BootstrapBlazorAuthenticationExample.Client.csproj", "{5E7F69B3-E416-4857-B5F8-C77DA7BCE228}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BootstrapBlazorAuthenticationExample", "BootstrapBlazorAuthenticationExample\BootstrapBlazorAuthenticationExample\BootstrapBlazorAuthenticationExample.csproj", "{8564F2AF-B418-446A-B36C-BB2A680650C5}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BootstrapBlazorAuthenticationExample.Share", "BootstrapBlazorAuthenticationExample\BootstrapBlazorAuthenticationExample.Share\BootstrapBlazorAuthenticationExample.Share.csproj", "{7A85E9D2-4430-4057-9152-974779AC4A5F}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{5E7F69B3-E416-4857-B5F8-C77DA7BCE228}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{5E7F69B3-E416-4857-B5F8-C77DA7BCE228}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{5E7F69B3-E416-4857-B5F8-C77DA7BCE228}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{5E7F69B3-E416-4857-B5F8-C77DA7BCE228}.Release|Any CPU.Build.0 = Release|Any CPU
+		{8564F2AF-B418-446A-B36C-BB2A680650C5}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{8564F2AF-B418-446A-B36C-BB2A680650C5}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{8564F2AF-B418-446A-B36C-BB2A680650C5}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{8564F2AF-B418-446A-B36C-BB2A680650C5}.Release|Any CPU.Build.0 = Release|Any CPU
+		{7A85E9D2-4430-4057-9152-974779AC4A5F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{7A85E9D2-4430-4057-9152-974779AC4A5F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{7A85E9D2-4430-4057-9152-974779AC4A5F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{7A85E9D2-4430-4057-9152-974779AC4A5F}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+EndGlobal
